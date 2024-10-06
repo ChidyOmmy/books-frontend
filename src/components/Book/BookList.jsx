@@ -19,7 +19,7 @@ const BookList = () => {
             <Skeleton
               key={skeleton}
               variant='rectangular'
-              width={200}
+              width={220}
               height={200}
             />
           ))}

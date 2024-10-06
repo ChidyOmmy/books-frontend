@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
+import { UserContext } from "../../context/userContext";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -52,6 +53,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const Navbar = () => {
+  const { user } = React.useContext(UserContext)
   return (
     <Box sx={{ flexGrow: 1, marginBottom: 2 }}>
       <AppBar position='static' sx={{ borderRadius: 2 }}>
@@ -71,6 +73,7 @@ const Navbar = () => {
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}>
             MUI
           </Typography>
+          <Typography variant='h6'> {user.username} </Typography>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />

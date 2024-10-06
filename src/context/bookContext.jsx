@@ -4,6 +4,7 @@ export const BookContext = createContext();
 
 export const BookContextProvider = ({ children }) => {
   const [books, setBooks] = useState([]);
+  const [popularBooks, setPopularBooks] = useState([]);
   const [booksCount, setBooksCount] = useState(0);
 
   const getBooks = async (skip, limit) => {
@@ -19,6 +20,7 @@ export const BookContextProvider = ({ children }) => {
       console.log(data.books);
       setBooks(data.books);
       setBooksCount(data.booksCount);
+      setPopularBooks(data.popularBooks);
     }
   };
   useEffect(() => {
@@ -27,7 +29,8 @@ export const BookContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <BookContext.Provider value={{ books, setBooks, getBooks, booksCount }}>
+    <BookContext.Provider
+      value={{ books, booksCount, popularBooks, setBooks, getBooks }}>
       {" "}
       {children}{" "}
     </BookContext.Provider>

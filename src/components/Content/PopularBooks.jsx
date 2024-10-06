@@ -6,8 +6,7 @@ import { BookContext } from "../../context/bookContext";
 
 const PopularBooks = () => {
   const theme = useTheme();
-  const { books } = useContext(BookContext);
-  const popularBooks = books.slice(0, 2);
+  const { books, popularBooks } = useContext(BookContext);
   const skeletons = [1, 2, 3];
 
   return (
@@ -18,13 +17,13 @@ const PopularBooks = () => {
       p={2}
       spacing={2}>
       <Typography variant='h6'>Popular Books</Typography>
-      {books.length < 1 ? (
+      {popularBooks.length < 1 ? (
         <>
           {skeletons.map((skeleton) => (
             <Skeleton
               key={skeleton}
               variant='reactangular'
-              width={200}
+              width={220}
               height={200}
             />
           ))}
