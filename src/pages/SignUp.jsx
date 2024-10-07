@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Box,
   Card,
@@ -17,8 +17,11 @@ import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import { useNavigate } from "react-router-dom";
 import { useGlobalStore } from "../store/globalStore";
+import { UserContext } from '../context/userContext'
+import { Link } from 'react-router-dom'
 
 const SignUp = () => {
+  const { setUser } = useContext(UserContext)
   const navigate = useNavigate()
   const openSnackbar = useGlobalStore((state) => state.openSnackbar)
   const setOpenSnackbar = useGlobalStore((state) => state.setOpenSnackbar)
@@ -92,6 +95,13 @@ const SignUp = () => {
         setSnackbarMessage(`Successfullly created user ${user.username}`)
         setSnackbarSeverity('success')
         setOpenSnackbar()
+        setUser({
+          username: user.username,
+          id: user.id,
+          fullname: user.fullname,
+          access: user.access,
+          refresh: user.refresh
+        })
         localStorage.setItem('access', user.access)
         localStorage.setItem('refresh', user.refresh)
         localStorage.setItem('username', user.username)
@@ -106,7 +116,7 @@ const SignUp = () => {
       }
       if (result) setLoading(false)
     } catch (error) {
-      console.log(error)
+      console.log(error.message)
     }
   }
   useEffect(() => {
@@ -138,7 +148,10 @@ const SignUp = () => {
   return (
     <Stack>
       <Box >
-        <Typography variant='h5'>Create an author account</Typography>
+        <Typography variant='h5'>
+          Got an account ?{" "}
+          <Link to='/login'>Log in</Link>
+        </Typography>
         <Card width='100%'>
           <CardContent
             sx={{

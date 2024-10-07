@@ -9,6 +9,7 @@ import SignUp from "./pages/SignUp";
 import { Routes, Route } from "react-router-dom";
 import MessageSnackbar from './components/Content/MessageSnackbar'
 import { UserContextProvider } from "./context/userContext";
+import LoginPage from "./pages/LoginPage";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
             <Routes>
               <Route path='/' exact element={<HomePage />} />
               <Route path='/signup' element={<SignUp />} />
+              <Route path='/login' element={<LoginPage />} />
               <Route path='/about' element={<AboutPage />} />
             </Routes>
         </Container>

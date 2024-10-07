@@ -6,9 +6,11 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
+import Button from "@mui/material/Button";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import { UserContext } from "../../context/userContext";
+import { Link } from 'react-router-dom'
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -53,7 +55,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const Navbar = () => {
-  const { user } = React.useContext(UserContext)
+  const { user, setUser, emptyUser } = React.useContext(UserContext)
+  const logout = () => {
+    setUser(emptyUser)
+    localStorage.clear()
+  }
   return (
     <Box sx={{ flexGrow: 1, marginBottom: 2 }}>
       <AppBar position='static' sx={{ borderRadius: 2 }}>
@@ -73,7 +79,18 @@ const Navbar = () => {
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}>
             OPENBOOKS
           </Typography>
-          <Typography variant='h6'> {user.username} </Typography>
+          {user.access ? (
+            <>
+              <Button color='white'>
+                {user.username}
+              </Button>
+              <Button onClick={logout} color='white'>
+                {user.access ? 'LOGOUT' : 'LOG IN'}
+              </Button>
+            </>
+          ) : <Link style={{ textDecoration: 'none', color: 'white' }} to='/signup'>
+            SIGN IN
+          </Link>}
           <Search>
             <SearchIconWrapper>
               <SearchIcon />

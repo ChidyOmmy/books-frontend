@@ -10,17 +10,20 @@ export const BookContextProvider = ({ children }) => {
   const getBooks = async (skip, limit) => {
     if (isNaN(limit)) limit = 3;
     if (isNaN(skip)) skip = 0;
-    console.log(skip);
-    const response = await fetch(
-      `http://localhost:8000/books?limit=${limit}&skip=${skip}`
-    );
-    if (!response.ok) console.log("an error", response);
-    const data = await response.json();
-    if (data) {
-      console.log(data.books);
-      setBooks(data.books);
-      setBooksCount(data.booksCount);
-      setPopularBooks(data.popularBooks);
+    try {
+      const response = await fetch(
+        `http://localhost:8000/books?limit=${limit}&skip=${skip}`
+      );
+      if (!response.ok) console.log("an error", response);
+      const data = await response.json();
+      if (data) {
+        console.log(data.books);
+        setBooks(data.books);
+        setBooksCount(data.booksCount);
+        setPopularBooks(data.popularBooks);
+      }
+    } catch (error) {
+      console.log('Failed to fetch', error.message)
     }
   };
   useEffect(() => {

@@ -2,8 +2,15 @@ import { createContext, useState, useEffect } from "react";
 import { jwtDecode } from 'jwt-decode'
 export const UserContext = createContext();
 
+const emptyUser = {
+    access: '',
+    refresh: '',
+    username: '',
+    fullname: '',
+    id: ''
+}
 export const UserContextProvider = ({ children }) => {
-    const [user, setUser] = useState({});
+    const [user, setUser] = useState(emptyUser);
 
     function getTokenExpiry(token) {
         if (!token) {
@@ -25,7 +32,7 @@ export const UserContextProvider = ({ children }) => {
         const refreshToken = localStorage.getItem('refresh')
         if (!refreshToken) {
             localStorage.clear()
-            setUser({})
+            setUser(emptyUser)
             return console.log('Invalid refresh token')
         }
         try {
@@ -41,7 +48,7 @@ export const UserContextProvider = ({ children }) => {
             if (!response.ok) {
                 console.log("Token refresh failed, clearing local storage");
                 localStorage.clear();
-                setUser({});
+                setUser(emptyUser);
                 return;
             }
 
@@ -55,7 +62,7 @@ export const UserContextProvider = ({ children }) => {
                 refresh
             }));
         } catch (error) {
-            console.error("Error refreshing token:", error);
+            console.error("Error refreshing token:", error.message);
         }
     }
 
@@ -66,10 +73,19 @@ export const UserContextProvider = ({ children }) => {
         const refresh = localStorage.getItem('refresh')
         const id = localStorage.getItem('id')
 
-        if (access) {
-            setUser({ username, fullname, access, refresh, id })
-            const accessExpiry = getTokenExpiry(access)
-            const refreshExpiry = getTokenExpiry(refresh)
+        if(access){
+            setUser({
+                username,fullname,id,access,refresh
+            })
+        }
+        return () => { };
+    },[]);
+    
+    useEffect(() => {
+         if (user.access) {
+            console.log('Access', user.access)
+            const accessExpiry = getTokenExpiry(user.access)
+            const refreshExpiry = getTokenExpiry(user.refresh)
 
             // Check how many time till expiry
             if (refreshExpiry - Date.now() > 0) {
@@ -83,16 +99,15 @@ export const UserContextProvider = ({ children }) => {
                 }
             } else {
                 localStorage.clear()
-                setUser({})
+                setUser(emptyUser)
             }
-        }
+        } else  console.log('Invalid access, cant refresh', user.access)
 
-        return () => { };
-    }, [access]);
-
+        return () => {};
+    }, [user.access]);
     return (
         <UserContext.Provider
-            value={{ user, setUser }}>
+            value={{ user, setUser, emptyUser }}>
             {" "}
             {children}{" "}
         </UserContext.Provider>
