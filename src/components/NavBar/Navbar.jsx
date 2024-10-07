@@ -71,7 +71,7 @@ const Navbar = () => {
             noWrap
             component='div'
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}>
-            MUI
+            OPENBOOKS
           </Typography>
           <Typography variant='h6'> {user.username} </Typography>
           <Search>
