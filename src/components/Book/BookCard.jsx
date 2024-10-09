@@ -3,12 +3,13 @@ import {
   CardContent,
   CardMedia,
   CardActions,
-  Typography
+  Typography,
 } from "@mui/material";
-import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
-import BubbleChartOutlinedIcon from "@mui/icons-material/BubbleChartOutlined";
-import React from "react";
 import BookMarkBorder from "@mui/icons-material/BookMarkBorder";
+import BubbleChartOutlinedIcon from "@mui/icons-material/BubbleChartOutlined";
+import React, { useContext } from "react";
+import { BookContext } from "../../context/bookContext";
+import LikeBook from "./likeBook";
 
 const BookCard = ({ book }) => {
   return (
@@ -31,7 +32,7 @@ const BookCard = ({ book }) => {
           flexDirection: "row",
           justifyContent: "space-between"
         }}>
-        <FavoriteBorder />
+        <LikeBook book={book} />
         <BubbleChartOutlinedIcon />
         <BookMarkBorder />
       </CardActions>

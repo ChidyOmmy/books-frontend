@@ -14,8 +14,8 @@ import LoginPage from "./pages/LoginPage";
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
-      <BookContextProvider>
-        <UserContextProvider>
+      <UserContextProvider>
+        <BookContextProvider>
         <Container>
             <MessageSnackbar />
           <Navbar />
@@ -26,8 +26,8 @@ const App = () => {
               <Route path='/about' element={<AboutPage />} />
             </Routes>
         </Container>
-        </UserContextProvider>
-      </BookContextProvider>
+        </BookContextProvider>
+      </UserContextProvider>
     </ThemeProvider>
   );
 };

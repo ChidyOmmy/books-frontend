@@ -11,6 +11,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import { UserContext } from "../../context/userContext";
 import { Link } from 'react-router-dom'
+import { BookContext } from "../../context/bookContext";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -56,9 +57,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const Navbar = () => {
   const { user, setUser, emptyUser } = React.useContext(UserContext)
+  const { getBooks } = React.useContext(BookContext)
+
   const logout = () => {
     setUser(emptyUser)
     localStorage.clear()
+    getBooks(0, 3, '')
   }
   return (
     <Box sx={{ flexGrow: 1, marginBottom: 2 }}>

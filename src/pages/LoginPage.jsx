@@ -19,9 +19,11 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import { useNavigate } from "react-router-dom";
 import { useGlobalStore } from "../store/globalStore";
 import { UserContext } from '../context/userContext'
+import { BookContext } from '../context/bookContext';
 
 
 const LoginPage = () => {
+    const { getBooks } = useContext(BookContext)
     const { setUser } = useContext(UserContext)
     const navigate = useNavigate()
     const openSnackbar = useGlobalStore((state) => state.openSnackbar)
@@ -85,6 +87,7 @@ const LoginPage = () => {
                 localStorage.setItem('username', user.username)
                 localStorage.setItem('fullname', user.fullname)
                 localStorage.setItem('id', user.id)
+                getBooks(0, 0, user.id)
                 !openSnackbar && navigate('/')
             } else {
                 console.log(response)
