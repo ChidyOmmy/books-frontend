@@ -60,8 +60,8 @@ const Navbar = () => {
   const { getBooks } = React.useContext(BookContext)
 
   const logout = () => {
-    setUser(emptyUser)
     localStorage.clear()
+    setUser(emptyUser)
     getBooks(0, 3, '')
   }
   return (

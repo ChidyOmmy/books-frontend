@@ -10,6 +10,7 @@ import { Routes, Route } from "react-router-dom";
 import MessageSnackbar from './components/Content/MessageSnackbar'
 import { UserContextProvider } from "./context/userContext";
 import LoginPage from "./pages/LoginPage";
+import BookPage from "./pages/BookPage";
 
 const App = () => {
   return (
@@ -21,6 +22,7 @@ const App = () => {
           <Navbar />
             <Routes>
               <Route path='/' exact element={<HomePage />} />
+              <Route path='/book/:id' exact element={<BookPage />} />
               <Route path='/signup' element={<SignUp />} />
               <Route path='/login' element={<LoginPage />} />
               <Route path='/about' element={<AboutPage />} />

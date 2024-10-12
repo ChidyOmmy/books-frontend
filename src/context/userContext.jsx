@@ -2,16 +2,23 @@ import { createContext, useState, useEffect, useMemo } from "react";
 import { jwtDecode } from 'jwt-decode'
 export const UserContext = createContext();
 
-const emptyUser = {
+const local_user = {
     username: localStorage.getItem('username'),
     fullname: localStorage.getItem('fullname'),
     access: localStorage.getItem('access'),
     refresh: localStorage.getItem('refresh'),
     id: localStorage.getItem('id'),
 }
+const empty_user = {
+    username: '',
+    fullname: '',
+    access: '',
+    refresh: '',
+    id: '',
+}
 export const UserContextProvider = ({ children }) => {
-
-    const [user, setUser] = useState(emptyUser);
+    const [emptyUser] = useState(empty_user)
+    const [user, setUser] = useState(local_user);
 
     function getTokenExpiry(token) {
         if (!token) {

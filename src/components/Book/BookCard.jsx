@@ -5,19 +5,23 @@ import {
   CardActions,
   Typography,
 } from "@mui/material";
-import BookMarkBorder from "@mui/icons-material/BookMarkBorder";
 import BubbleChartOutlinedIcon from "@mui/icons-material/BubbleChartOutlined";
 import React, { useContext } from "react";
 import { BookContext } from "../../context/bookContext";
 import LikeBook from "./likeBook";
+import FavoriteBook from "./FavoriteBook";
+import { useNavigate } from "react-router";
 
 const BookCard = ({ book }) => {
+  const navigate = useNavigate()
   return (
     <Card sx={{ width: 220 }}>
       <CardMedia
+        sx={{ cursor: 'pointer' }}
         height={200}
         width='100%'
         component='img'
+        onClick={() => navigate(`book/${book._id}`)}
         src={`http://localhost:8000/${book.cover}`}
       />
       <CardContent>
@@ -34,7 +38,7 @@ const BookCard = ({ book }) => {
         }}>
         <LikeBook book={book} />
         <BubbleChartOutlinedIcon />
-        <BookMarkBorder />
+        <FavoriteBook book={book} />
       </CardActions>
     </Card>
   );
