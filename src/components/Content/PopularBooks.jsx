@@ -11,7 +11,7 @@ const PopularBooks = () => {
 
   return (
     <Stack
-      bgcolor={theme.palette.greenishColor.main}
+      bgcolor={theme.palette.greenishColor.dark}
       sx={{ borderRadius: theme.shape.borderRadius }}
       direction='column'
       p={2}

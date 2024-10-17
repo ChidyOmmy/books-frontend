@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Box, Card, CardContent, CardMedia, Stack, Button, Typography } from "@mui/material";
 import BookSkeleton from "./skeletons/BookSkeleton";
 import { useParams } from "react-router";
 import BookDetailCard from "../components/Book/BookDetailCard";
 import BookComments from "../components/Book/BookComments";
-
+import { RLink } from "../components/styled/StyledButtons";
+import { UserContext } from '../context/userContext'
 
 const BookPage = () => {
+    const { user } = useContext(UserContext)
     const { id } = useParams()
     const [loading, setLoading] = useState(true);
     const [book, setBook] = useState({
@@ -45,6 +47,9 @@ const BookPage = () => {
         ],
         __v: 12
     });
+
+    const isAuthor = book.authors.some(author => author._id === user.id)
+
     const fetchBook = async () => {
         const response = await fetch(
             `http://localhost:8000/books/${id}`
@@ -73,6 +78,7 @@ const BookPage = () => {
                 <BookSkeleton />
             ) : (
                 <Stack direction='column' spacing={2}>
+                        {isAuthor && <RLink to='edit' > Edit Book</RLink>}
                     <Stack direction='row' spacing={.5} sx={{ justifyContent: 'center' }}>
                         <Stack sx={{ height: '100%', width: '75%' }} direction='column' spacing={.5}>
                             <BookDetailCard book={book} />

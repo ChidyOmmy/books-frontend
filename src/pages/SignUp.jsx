@@ -123,7 +123,7 @@ const SignUp = () => {
     }
   }
   useEffect(() => {
-    debounce(checkuserName(formData.username), 3500)
+    debounce(checkuserName(formData.username), 5000)
     return () => {
       controller.abort()
     };

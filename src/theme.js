@@ -3,6 +3,7 @@ import { lighten, darken } from "@mui/system";
 
 const theme = createTheme({
   palette: {
+    mode: 'dark',
     primary: {
       main: "#512125",
       light: lighten("#512125", 0.2),
@@ -24,7 +25,7 @@ const theme = createTheme({
     greenishColor: {
       main: "#F6EBBD",
       light: lighten("#F6EBBD", 0.2),
-      dark: darken("#F6EBBD", 0.2),
+      dark: darken("#F6EBBD", 0.5),
       contrastText: "#000000"
     },
     error: {
@@ -33,15 +34,7 @@ const theme = createTheme({
       dark: "#c62828",
       contrastText: "#fff"
     },
-    background: {
-      default: "#fff",
-      paper: "#fff"
-    },
-    text: {
-      primary: "rgba(0, 0, 0, 0.87)",
-      secondary: "rgba(0, 0, 0, 0.6)",
-      disabled: "rgba(0, 0, 0, 0.38)"
-    }
+
   },
   breakpoints: {
     keys: ["xs", "sm", "md", "lg", "xl"],
