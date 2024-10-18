@@ -1,10 +1,16 @@
-import { Avatar, Box, Button, Stack, TextField, Typography } from '@mui/material';
+import { Avatar, Box, Button, CircularProgress, Stack, TextField, Typography } from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import AddAuthors from '../components/EditBook/AddAuthors';
+import { useGlobalStore } from '../store/globalStore';
+import EditPages from '../components/EditBook/EditPages';
 
 
 const EditBook = () => {
+    const setOpenSnackbar = useGlobalStore((state) => state.setOpenSnackbar)
+    const setSnackbarMessage = useGlobalStore((state) => state.setSnackbarMessage)
+    const setSnackbarSeverity = useGlobalStore((state) => state.setSnackbarSeverity)
+    const [loadingUpdate, setLoadingUpdate] = useState(false)
     const [loading, setLoading] = useState(true)
     const [book, setBook] = useState({})
     const [selectedAuthors, setSelectedAuthors] = useState([]);
@@ -39,11 +45,12 @@ const EditBook = () => {
         if (result) {
             console.log("result", result.book);
             setBook(result.book)
-            setLoading(false);
+            setLoading(false)
         }
     };
 
-    const handleUpdateBook = async (event) => {
+    const handleUpdateBook = async () => {
+        setLoadingUpdate(true)
         const authors = selectedAuthors.map((author) => author._id)
         const body = new FormData()
         body.append('authors', JSON.stringify(authors))
@@ -59,10 +66,24 @@ const EditBook = () => {
                 body: body
             })
             const result = await response.json()
-            console.log(result)
+            if (!response.ok) {
+                result.error ? setSnackbarMessage(result.error) : setSnackbarMessage('an error occured, please try again')
+                setSnackbarSeverity('error')
+                setOpenSnackbar()
+                return
+            }
+            result.book && setBook(result.book)
+            setSelectedAuthors([])
+            setSnackbarMessage(result.message)
+            setSnackbarSeverity('success')
+            setOpenSnackbar()
         } catch (error) {
-            console.log(error)
+            error.message ? setSnackbarMessage(error.message) : setSnackbarMessage('Network error, please try again')
+            setSnackbarSeverity('error')
+            setOpenSnackbar()
+            return
         }
+        setLoadingUpdate(false)
     }
 
     useEffect(() => {
@@ -87,7 +108,7 @@ const EditBook = () => {
     return (
         <Box>
             {loading ? 'Loading...' : (<>
-                <Stack direction='column' >
+                <Stack direction='column' spacing={2} >
                     <Stack direction='row' spacing={2}>
                         <Stack spacing={2} sx={{ width: '50%' }}>
                             <TextField onChange={(event) => handleBookFormChange(event, 'title')} value={bookForm.title} label='Book title' />
@@ -113,7 +134,8 @@ const EditBook = () => {
                             </Stack>
                         </Stack>
                     </Stack>
-                    <Button onClick={handleUpdateBook} variant='contained'>Update Book</Button>
+                    <Button disabled={loadingUpdate} onClick={handleUpdateBook} variant='contained'>Update Book {loadingUpdate && <CircularProgress size={16} />} </Button>
+                    <EditPages />
                 </Stack>
             </>)}
 

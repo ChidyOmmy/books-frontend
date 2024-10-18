@@ -5,7 +5,7 @@ import {useGlobalStore} from '../store/globalStore'
 import {useNavigate} from 'react-router-dom'
 
 const CreateBook = () => {
-        const navigate = useNavigate()
+  const navigate = useNavigate()
   const { user } = useContext(UserContext);
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
