@@ -19,15 +19,9 @@ const MarkdownPaper = styled(MarkDown)({
     overflowY: 'auto'
 });
 
-const Editor = () => {
-    const [value, setValue] = useState(`# Hi`)
-
-    const handleEditorChange = (event) => {
-        console.log(event.target.value)
-        setValue(event.target.value)
-    }
+const Editor = ({ handleEditorChange, value }) => {
     return (
-        <Stack direction='row'>
+        <Stack spacing={.5} direction='row'>
             <PaperTextArea value={value} handleEditorChange={handleEditorChange} />
             <Paper elevation={3} sx={{ padding: 2, width: '100%', maxWidth: '600px' }}>
                 <MarkdownPaper remarkPlugins={[remarkGFM, remarkMath]} rehypePlugins={[rehypeKatex]} children={value} />

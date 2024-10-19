@@ -135,7 +135,7 @@ const EditBook = () => {
                         </Stack>
                     </Stack>
                     <Button disabled={loadingUpdate} onClick={handleUpdateBook} variant='contained'>Update Book {loadingUpdate && <CircularProgress size={16} />} </Button>
-                    <EditPages />
+                    <EditPages book={book} />
                 </Stack>
             </>)}
 

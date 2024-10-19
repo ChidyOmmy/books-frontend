@@ -19,7 +19,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <UserContextProvider>
         <BookContextProvider>
-          <Paper sx={{minHeight:'100vh'}}>
+          <Paper sx={{ minHeight: '100vh', margin: 0, paddingY: 5 }}>
         <Container>
             <MessageSnackbar />
           <Navbar />
