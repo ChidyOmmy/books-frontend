@@ -1,9 +1,10 @@
-import { Avatar, Skeleton, Box, Card, List, ListItem, Button, ListItemAvatar, ListItemText, Stack, Typography, Divider, TextField } from '@mui/material';
+import { Avatar, Skeleton, Box, Card, List, ListItem, Button, ListItemAvatar, ListItemText, Stack, Typography, Divider, TextField, IconButton } from '@mui/material';
 import React, { useState, useContext,useEffect } from 'react';
 import {Link} from 'react-router-dom'
 import { UserContext } from '../../context/userContext';
 import CommentsSkeleton from './CommentsSkeleton'
 import { useGlobalStore } from "../../store/globalStore";
+import Send from '@mui/icons-material/Send'
 
 const BookComments = ({ book }) => {
     const openSnackbar = useGlobalStore((state) => state.openSnackbar)
@@ -145,13 +146,13 @@ const BookComments = ({ book }) => {
                         )}
                     </>)}
                 </List>
-                <ListItem component='div' alignItems="flex-start">
-                    <ListItemAvatar>
-                        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                    </ListItemAvatar>
-                    <TextField error={commentError} helperText={commentError ? "Can't post an empty comment": null} placeholder='Add a comment' value={comment} onChange={handleChange}  multiline variant='outlined' sx={{ borderRadius: 4 }} />
-                    <Button onClick={sendComment}  variant='contained' color='primary' >Comment</Button>
-                </ListItem>
+                <Stack spacing={1} direction='row' alignItems="center">
+                    <Avatar alt={user.username.toUpperCase()} src="/static/images/avatar/1.jpg" />
+                    <TextField error={commentError} helperText={commentError ? "Can't post an empty comment" : null} placeholder='Add a comment' value={comment} onChange={handleChange} maxRows={3} multiline variant='outlined' sx={{ borderRadius: 4 }} />
+                    <IconButton onClick={sendComment} variant='contained' color='primary' >
+                        <Send />
+                    </IconButton>
+                </Stack>
             </Stack>
         </Card>
     );

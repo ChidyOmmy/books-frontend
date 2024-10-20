@@ -10,23 +10,16 @@ const BookDetailCard = ({ book }) => {
                 </Typography>} secondary={<Typography variant="body2">a haunted one</Typography>} />
                 <Typography variant='h6' sx={{ fontWeight: 400 }}>About this book</Typography>
                 <Typography>
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-                    printing and typesetting industry. Lorem Ipsum has been the industry's
-                    printing and typesetting industry. Lorem Ipsum has been the industry's,
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-                    printing and typesetting industry. Lorem Ipsum has been the industry's
-                    printing and typesetting industry. Lorem Ipsum has been the industry's
+                    {book.summary}
                 </Typography>
                 <Stack alignItems='center' direction='row' justifyContent='space-between'>
                     <Stack alignItems='center' direction='row' spacing={.5}>
-                        <AvatarGroup max={4}>
-                            <Avatar sx={{ width: 35, height: 35 }} alt='author'>JK</Avatar>
-                            <Avatar sx={{ width: 35, height: 35 }} alt='author'>RO</Avatar>
-                            <Avatar sx={{ width: 35, height: 35 }} alt='author'>AB</Avatar>
-                            <Avatar sx={{ width: 35, height: 35 }} alt='author'>NP</Avatar>
-                            <Avatar sx={{ width: 35, height: 35 }} alt='author'>NP</Avatar>
+                        <AvatarGroup>
+                            {book.authors.map(author => <Avatar key={author._id} src='/static/images' sx={{ width: 30, height: 30 }} alt={author.username.toUpperCase()} />)}
                         </AvatarGroup>
-                        <Typography>By Rashid Shakili,John Doe, Jane Doe and Jane Zei</Typography>
+                        <Typography>By {book.authors.map((author, index) => {
+                            return index == book.authors.length - 1 ? `and ${author.username}` : `${author.username}, `
+                        })}</Typography>
                     </Stack>
                     <Typography>12 pages</Typography>
                 </Stack>

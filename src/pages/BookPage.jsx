@@ -6,11 +6,14 @@ import BookDetailCard from "../components/Book/BookDetailCard";
 import BookComments from "../components/Book/BookComments";
 import { RLink } from "../components/styled/StyledButtons";
 import { UserContext } from '../context/userContext'
+import ViewPage from "../components/PageView/ViewPage";
 
 const BookPage = () => {
     const { user } = useContext(UserContext)
     const { id } = useParams()
     const [loading, setLoading] = useState(true);
+    const [pages, setPages] = useState([])
+    const [pageCount, setPageCount] = useState([])
     const [book, setBook] = useState({
         _id: "66f73ca324d7943bc06acfef",
         title: "Star",
@@ -89,8 +92,9 @@ const BookPage = () => {
                             </Card>
                         </Stack>
                     </Stack>
-                    <BookComments book={book} />
-                </Stack>
+                        <BookComments book={book} />
+                        <ViewPage book={book} />
+                    </Stack>
             )}
         </Stack>
     );
