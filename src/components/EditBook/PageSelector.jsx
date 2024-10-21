@@ -1,7 +1,8 @@
 // src/components/PageSelector.js
-import { Avatar, Stack, Pagination, Badge, IconButton, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button } from '@mui/material';
+import { Avatar, Stack, Pagination, Badge, IconButton, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Button, Paper, Link } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useState } from 'react';
+import MarkDown from 'react-markdown';
 
 const PageSelector = ({ pages, handlePageClick, handleNew, pageCount, handleChange, handleDeletePage }) => {
     const [openDialog, setOpenDialog] = useState(false);
@@ -29,15 +30,21 @@ const PageSelector = ({ pages, handlePageClick, handleNew, pageCount, handleChan
                 <Stack spacing={2} direction='row' justifyContent='center'>
                     {pages.map((page) => (
                         <Badge key={page._id} sx={{ position: 'relative' }}>
-                            <Avatar
+                            <Link sx={{ textDecoration: 'none' }} href='#paperview'>
+                                <Paper
+                                    key={page._id}
                                 onClick={() => handlePageClick(page)}
-                                src=''
-                                alt='page'
-                                variant='square'
-                                sx={{ width: 100, height: 150 }}
+                                    sx={{ width: 150, height: 200, cursor: 'pointer', overflow: 'hidden', textOverflow: 'ellipsis', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                             >
-                                {page._id}
-                            </Avatar>
+                                    <MarkDown
+                                        components={{
+                                            h1: 'h4', h2: 'h4', h3: 'h4'
+                                        }}
+                                    >
+                                        {page.content.split('\n').find(line => line.trim() !== '') || 'Untitled'}
+                                    </MarkDown>
+                                </Paper>
+                            </Link>
 
                             {/* IconButton for Deleting Page */}
                             <IconButton
@@ -49,7 +56,12 @@ const PageSelector = ({ pages, handlePageClick, handleNew, pageCount, handleChan
                             </IconButton>
                         </Badge>
                     ))}
-                    <Avatar onClick={handleNew} src='' alt='new page' variant='square' sx={{ width: 100, height: 150 }}>+</Avatar>
+                    <Link sx={{ textDecoration: 'none' }} href='#paperview'>
+                        <Paper
+                            onClick={handleNew}
+                            sx={{ width: 150, height: 200, cursor: 'pointer', textOverflow: 'ellipsis', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '250%', fontWeight: 900 }}
+                        > +</Paper>
+                    </Link>
                 </Stack>
                 <Pagination
                     count={count}

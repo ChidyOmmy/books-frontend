@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Stack, Paper } from '@mui/material';
+import { Stack, Paper, Box } from '@mui/material';
 import PaperTextArea from './PaperTextArea';
 import MarkDown from 'react-markdown'
 import remarkGFM from 'remark-gfm'
@@ -19,14 +19,24 @@ const MarkdownPaper = styled(MarkDown)({
     overflowY: 'auto'
 });
 
-const Editor = ({ handleEditorChange, value }) => {
+const Editor = ({ handleEditorChange, value, setValue }) => {
     return (
-        <Stack spacing={.5} direction='row'>
+        <Paper elevation={3} sx={{ width: '100%', paddingY: 4, borderRadius: 5 }}>
+            <Stack id='paperview' spacing={.5} direction='row'>
             <PaperTextArea value={value} handleEditorChange={handleEditorChange} />
             <Paper elevation={3} sx={{ padding: 2, width: '100%', maxWidth: '600px' }}>
-                <MarkdownPaper remarkPlugins={[remarkGFM, remarkMath]} rehypePlugins={[rehypeKatex]} children={value} />
+                    <MarkdownPaper components={{
+                        img: ({ node, ...props }) => (
+                            <img
+                                {...props}
+                                alt={props.alt}
+                                style={{ maxWidth: '100%', height: 'auto', display: 'block', margin: '0 auto' }}
+                            />
+                        )
+                    }} remarkPlugins={[remarkGFM, remarkMath]} rehypePlugins={[rehypeKatex]} children={value} />
             </Paper>
         </Stack>
+        </Paper>
     );
 }
 

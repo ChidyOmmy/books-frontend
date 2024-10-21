@@ -150,6 +150,7 @@ const EditPages = ({ book }) => {
                 handleDeletePage={handleDeletePage}
             />
             <PageEditor
+                setValue={setValue}
                 value={value}
                 updateMode={updateMode}
                 loading={loading}
