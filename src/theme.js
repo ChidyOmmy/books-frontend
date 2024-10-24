@@ -3,7 +3,7 @@ import { lighten, darken } from "@mui/system";
 
 const theme = createTheme({
   palette: {
-    mode: 'dark',
+    // mode: 'dark',
     primary: {
       main: "#512125",
       light: lighten("#512125", 0.2),
@@ -33,8 +33,7 @@ const theme = createTheme({
       light: "#ef5350",
       dark: "#c62828",
       contrastText: "#fff"
-    },
-
+    }
   },
   breakpoints: {
     keys: ["xs", "sm", "md", "lg", "xl"],

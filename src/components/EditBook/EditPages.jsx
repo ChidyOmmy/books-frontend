@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import PageSelector from './PageSelector';
 import PageEditor from './PageEditor';
 import { useGlobalStore } from '../../store/globalStore';
+import ToastEditor from './ToastEditor';
 
 const EditPages = ({ book }) => {
     const [value, setValue] = useState(`## Edit your contents here and see the result on the markdown preview 👉`);
@@ -139,7 +140,7 @@ const EditPages = ({ book }) => {
 
     return (
         <Stack spacing={2}>
-            <Typography variant='h5'>ALL PAGES</Typography>
+            {/* <Typography variant='h5'>ALL PAGES</Typography>
             <Typography variant='body1'>Select a page to edit its contents</Typography>
             <PageSelector
                 pages={pages}
@@ -157,7 +158,8 @@ const EditPages = ({ book }) => {
                 handleEditorChange={(e) => setValue(e.target.value)}
                 updatePage={updatePage}
                 addPage={addPage}
-            />
+            /> */}
+            <ToastEditor />
         </Stack>
     );
 };

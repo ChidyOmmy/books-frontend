@@ -11,7 +11,7 @@ const EditBook = () => {
     const setSnackbarMessage = useGlobalStore((state) => state.setSnackbarMessage)
     const setSnackbarSeverity = useGlobalStore((state) => state.setSnackbarSeverity)
     const [loadingUpdate, setLoadingUpdate] = useState(false)
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     const [book, setBook] = useState({})
     const [selectedAuthors, setSelectedAuthors] = useState([]);
     const [imagePreview, setImagePreview] = useState('')
@@ -109,7 +109,7 @@ const EditBook = () => {
         <Box>
             {loading ? 'Loading...' : (<>
                 <Stack direction='column' spacing={2} >
-                    <Stack direction='row' spacing={2}>
+                    {/* <Stack direction='row' spacing={2}>
                         <Stack spacing={2} sx={{ width: '50%' }}>
                             <TextField onChange={(event) => handleBookFormChange(event, 'title')} value={bookForm.title} label='Book title' />
                             <TextField onChange={(event) => handleBookFormChange(event, 'subtitle')} value={bookForm.subtitle} label='subtitle' />
@@ -134,7 +134,7 @@ const EditBook = () => {
                             </Stack>
                         </Stack>
                     </Stack>
-                    <Button disabled={loadingUpdate} onClick={handleUpdateBook} variant='contained'>Update Book {loadingUpdate && <CircularProgress size={16} />} </Button>
+                    <Button disabled={loadingUpdate} onClick={handleUpdateBook} variant='contained'>Update Book {loadingUpdate && <CircularProgress size={16} />} </Button> */}
                     <EditPages book={book} />
                 </Stack>
             </>)}

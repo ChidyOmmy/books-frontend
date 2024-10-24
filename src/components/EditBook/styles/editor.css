@@ -1,0 +1,19 @@
+.prose{
+    width: 100%;
+    border: 1px solid green;
+}
+
+div [contenteditable="true"]{
+    outline: 3px solid grey;
+    min-height: 540px;
+    padding: 10px;
+}
+
+
+.prose table,th,td,tr {
+    border: 1px solid grey;
+    border-collapse: collapse;
+}
+.prose td {
+    width: 100px
+}
